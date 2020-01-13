@@ -47,27 +47,33 @@
     <script>
         var level = parseInt(prompt('select level \n 1.Easy \n 2.medium \n 3.Hard \n 4.Demon'))
         var arrSample = ['&#x263a;','&#x265b;','&#x2791;','&#x2764;','&#x2708;','&#x25d1;','&#x2730;','&#x2709;','&#x263c;','&#x2295;','&#x2211;','&#x25b3;','&#x265a;','&#x2601;','&#x221e;','&#x2744;','&#x2640;','&#x2642;','&#x266a;','&#x266b;','&#x2297;','&#x2205;','&#x2658;'];
+        var time
 
         switch (level) {
             case 1:
                 arrSample = arrSample.slice(0,5)
                 arrSample = [ ...arrSample , ...arrSample ]
+                time = 20
               break;
             case 2:
                 arrSample = arrSample.slice(0,7)
                 arrSample = [ ...arrSample , ...arrSample ]
+                time = 30
               break;
             case 3:
                 arrSample = arrSample.slice(0,10)
                 arrSample = [ ...arrSample , ...arrSample ]
+                time = 40
               break;
             case 4:
                 arrSample = arrSample
+                time = 60
               break;
               default:
                 alert("Invalid")
               break;
         }
+        
           
         var moves  = 0
 
@@ -96,6 +102,16 @@
                     ${arrSample[k]}
                 </div>`)
             }
+            setInterval(()=>{
+                time--
+                $('#time').html(time)
+                if(time==0)
+                {
+                    alert("THE END")
+                    window.location.reload()
+                }
+            },1000)
+
             $('#Cards').click((e)=>{
                 moves ++
                 $('#count').html(moves)
@@ -141,6 +157,11 @@
                 console.log(activatedCards,"avtiveCard")
                 console.log(activatedCardIndex,"Index")
                 console.log(matchedCards,"machedCards")
+                if(arrSample.length == matchedCards.length)
+                {
+                    alert(`Winner !!!! \n Moves:${moves}`)
+                    window.location.reload()
+                }
 
 
             })
@@ -153,6 +174,7 @@
 <body>
  <div class="container">
      <div ><h2>Moves:<span id="count">0</span></h2> </div>
+     <div> Time:<span id="time"></span></div>
      
      <div id="Cards"></div>
      
